@@ -1,2 +1,6 @@
-export interface Category {
+export interface Category
+{
+  idCategorie : number,
+  name : string,
 }
+

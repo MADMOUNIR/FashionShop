@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -10,29 +10,32 @@ import { environment } from 'src/environments/environment';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit , OnDestroy {
+export class ProductsComponent implements OnInit  {
 
   prodSub : Subscription;
-  products : Product[] =[];
-  prefImageUrl = `${environment.prefImageUrl}`
+  pageSub : Subscription ;
+  //Accepter un tableau de produits comme paramètre
+  @Input() products : Product[] =[];
+  @Input() isPaginate : boolean = true ;
+  prefImageUrl = `${environment.prefImageUrl}` ;
+  curentPage : number = 0 ;
+  pages = [1,2,3,4,5,6,7,8,9,10];
+
   constructor(private prodService : ProductsService , private cartService : CartService) {
 
    }
 
   ngOnInit(): void {
 
-    this.prodSub = this.prodService.productSubject.subscribe(
-      (data ) => {
-        this.products = data;
-        console.log(this.products);
-      }
-    );
-    this.prodService.emitProduct();
+
+
 
   }
-  ngOnDestroy() : void {
-    this.prodSub.unsubscribe();
-  }
+
+  //On écoute plus prodSub
+  // ngOnDestroy() : void {
+  //   this.prodSub.unsubscribe();
+  // }
 
 //--------------Getion du Panier ----------------------//
   addToCart(product : Product) : void
@@ -44,5 +47,44 @@ export class ProductsComponent implements OnInit , OnDestroy {
   {
     this.cartService.deleteProductFromCart(product) ;
   }
+
+  //--------------Getion de la pagination ----------------------//
+
+  changePage(numberPage : number) : void
+  {
+    const listProd = this.prodService.getProductByPage(numberPage) ;
+    if(listProd)
+    {
+      this.products = listProd ;
+    }
+    this.curentPage = numberPage ;
+
+  }
+
+  nextPage() : void
+  {
+
+    const newCurrentPage = this.curentPage + 1 ;
+    const listProd = this.prodService.getProductByPage(newCurrentPage) ;
+    if(listProd)
+    {
+      this.products = listProd ;
+      this.curentPage = newCurrentPage ;
+    }
+  }
+
+  prevPage() : void
+  {
+    const newCurrentPage = this.curentPage - 1 ;
+    const listProd = this.prodService.getProductByPage(newCurrentPage) ;
+    if(listProd)
+    {
+      this.products = listProd ;
+      this.curentPage = newCurrentPage ;
+    }
+
+  }
+
+
 
 }

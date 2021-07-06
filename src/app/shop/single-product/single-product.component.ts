@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -13,7 +14,8 @@ import { environment } from 'src/environments/environment';
 export class SingleProductComponent implements OnInit {
 
   product : Product ;
-  prefImageUrl = `${environment.prefImageUrl}`
+  prefImageUrl = `${environment.prefImageUrl}`;
+  productSub : Subscription ;
 
   constructor(private route : ActivatedRoute ,
               private prodService : ProductsService ,
@@ -24,8 +26,18 @@ export class SingleProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0,0);
     const id = +this.route.snapshot.params["id"] ; // pour forcer la conversion vers entier
-    this.product = this.prodService.getProductById(id);
+
+
+    this.productSub = this.prodService.productSubject.subscribe(
+      (data : Product[]) =>
+      {
+        this.product = this.prodService.getProductById(id);
+      }
+    );
+    this.prodService.emitProduct();
+
   }
 
   addCart(product: Product): void{

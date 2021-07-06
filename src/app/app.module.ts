@@ -16,7 +16,11 @@ import { CartComponent } from './shop/cart/cart.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AddToCartComponent } from './shop/add-to-cart/add-to-cart.component';
-import { ModalQuickViewComponent } from './shop/modal-quick-view/modal-quick-view.component' ;
+import { ModalQuickViewComponent } from './shop/modal-quick-view/modal-quick-view.component';
+import { CategoryComponent } from './category/category.component' ;
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 
 const routes :  Routes = [
  { path : 'home' , component :  HomeComponent} ,
@@ -26,6 +30,7 @@ const routes :  Routes = [
  { path : 'single-product/:id' , component : SingleProductComponent} ,
  { path : 'login' , component : LoginComponent} ,
  { path : 'register' , component : RegisterComponent} ,
+ { path : 'category/:id' , component : CategoryComponent} ,
  { path : 'notFound' , component : NotFoundComponent} ,
  { path : '' , component : ShopComponent} ,
  { path : '**' , redirectTo : 'not-found' , pathMatch : 'full'} ,
@@ -47,12 +52,16 @@ const routes :  Routes = [
     CartComponent,
     NotFoundComponent,
     AddToCartComponent,
-    ModalQuickViewComponent
+    ModalQuickViewComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule ,
     RouterModule.forRoot(routes) ,
-    HttpClientModule
+    HttpClientModule ,
+    ReactiveFormsModule ,
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

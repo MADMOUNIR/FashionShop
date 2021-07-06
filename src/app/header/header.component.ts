@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Cart } from '../models/cart';
+import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { CartService } from '../services/cart.service';
+import { CategoryService } from '../services/category.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -12,15 +16,34 @@ export class HeaderComponent implements OnInit {
 
   cart : Cart[] = [] ;
   cartData ;
-  constructor(private cartService : CartService) { }
+  categories : Category[] ;
+  categorySub : Subscription ;
+  isAuth = false;
 
-  ngOnInit(): void {
+  constructor(private cartService : CartService ,
+              private categoryService : CategoryService ,
+              private userService : UsersService) { }
+
+  ngOnInit(): void
+  {
     this.cart = this.cartService.cart ;
     this.cartData = this.cartService.cartData ;
+    this.isAuth = this.userService.isAuth ;
+
+    // Récupération des catégories
+    this.categorySub = this.categoryService.categorySubject.subscribe(
+    (data : Category[]) => {
+    this.categories = data ;
+    }
+    );
+    this.categoryService.emitCategory();
 
 
-
-
+  }
+  lougout() : void
+  {
+    this.userService.logout();
+    this.isAuth = this.userService.isAuth;
   }
 
 
