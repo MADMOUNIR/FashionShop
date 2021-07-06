@@ -48,6 +48,10 @@ onSubmit() : void
 
   ).catch( (error) => {
     this.errorMessage = error ;
+    setTimeout(() => {
+      this.errorMessage = null;
+
+    }, 3000);
     console.log("erreur d'authentification :"+error);
 
   }
@@ -55,7 +59,7 @@ onSubmit() : void
 
 
 
-  console.log({user : email , pass : password});
+
 
 
 }

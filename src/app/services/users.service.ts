@@ -64,16 +64,20 @@ export class UsersService {
       return new Promise(
         (resolve,reject) =>
         {
-          const url = `${environment.api + 'createUsers.php?' + environment.api_key}` +
+          const url = `${environment.api + 'createUsers.php' +'?API_KEY='+ environment.api_key}` +
         '&email=' + newUser.email + '&password=' + newUser.password + '&sexe=' + newUser.sexe +
         '&firstname=' + newUser.firstName + '&lastname=' + newUser.lastName + '&dateBirth=' +
         newUser.dateBirth + '&pseudo=' + newUser.pseudo;
 
+        console.log("url backend :"+url);
         this.http.get(url).subscribe(
           (data : Result) => {
             if(data.status == 200)
             {
-             this.authentifier(newUser) ;
+             //this.authentifier(newUser) ;
+             this.user = data.result ;
+             this.isAuth = true;
+             this.emitUser();
              resolve(data.result);
             }
             else
