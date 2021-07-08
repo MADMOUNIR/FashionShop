@@ -106,4 +106,10 @@ export class CartService {
 
 
   }
+
+   //--------------supprimer un element du panier -----------------//
+  removeElementOfCart(index: number): void{
+    this.cart.splice(index,1);
+    this.updateDataCart();
+  }
 }

@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   categories : Category[] ;
   categorySub : Subscription ;
   isAuth = false;
+  userName;
 
   constructor(private cartService : CartService ,
               private categoryService : CategoryService ,
@@ -29,6 +30,13 @@ export class HeaderComponent implements OnInit {
     this.cart = this.cartService.cart ;
     this.cartData = this.cartService.cartData ;
     this.isAuth = this.userService.isAuth ;
+   if(this.isAuth)
+   {
+    this.userName = this.userService.userName ;
+    console.log( this.userService.user);
+
+   }
+
 
     // Récupération des catégories
     this.categorySub = this.categoryService.categorySubject.subscribe(

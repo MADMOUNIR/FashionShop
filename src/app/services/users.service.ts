@@ -13,6 +13,7 @@ export class UsersService {
   user : User ;
   userSubject = new Subject<User>();
   isAuth : boolean = false ;
+  userName ;
 
   constructor(private http  : HttpClient)
   {
@@ -38,6 +39,7 @@ export class UsersService {
               //Athentification réussi
               this.user = data.result ;
               this.isAuth = true;
+              this.userName = data.result.firstname;
               this.emitUser();
               resolve(data.result);
             }
@@ -75,7 +77,7 @@ export class UsersService {
             if(data.status == 200)
             {
              //this.authentifier(newUser) ;
-             this.user = data.result ;
+             this.user = data.args ;
              this.isAuth = true;
              this.emitUser();
              resolve(data.result);

@@ -43,28 +43,26 @@
           <div class="row align-items-center">
               <div class="col-sm-6 col-lg-2 order-first">
                   <div class="logo text-center text-sm-left mb-30 mb-sm-0">
-                      <a href="index.html"><img src="assets/img/logo/Logo-fashio-market.png" alt="logo"></a>
+                      <a routerLink="/home"><img src="assets/img/logo/Logo-fashio-market.png" alt="logo"></a>
                   </div>
               </div>
               <div class="col-sm-6 col-lg-5 col-xl-4">
-                  <!-- search-form end -->
+                  <!-- Welcome user !-->
                   <div class="d-flex align-items-center justify-content-center justify-content-sm-end">
                       <div class="media static-media mr-50 d-none d-lg-flex">
-                          <img class="mr-3 align-self-center" src="assets/img/icon/1.png" alt="icon">
-                          <div class="media-body">
-                              <div class="phone">
-                                  <span class="text-muted">Call us:</span>
-                              </div>
-                              <div class="phone">
-                                  <a href="tel:(+33)752152560" class="text-dark">(+33)752152560</a>
-                              </div>
-                          </div>
+                        <ul class="d-flex">
+                          <li class="mr-0 cart-block position-relative">
+                            <li class="mr-0 cart-block position-relative">
+                              <div *ngIf="isAuth" class="text-dark text-welcome" >Welcome  {{userName}} !</div>
+                             </li>
+                        </ul>
                       </div>
-                      <!-- static-media end -->
+
+                       <!-- total du panier  -->
                       <div class="cart-block-links theme1">
                           <ul class="d-flex">
 
-                              <li class="mr-0 cart-block position-relative">
+                            <li class="mr-0 cart-block position-relative">
                                   <a class="offcanvas-toggle" routerLink="/cart">
                                       <span class="position-relative">
                                           <i class="icon-bag"></i>
@@ -76,6 +74,10 @@
                               <!-- cart block end -->
                           </ul>
                       </div>
+
+
+
+
                       <div class="mobile-menu-toggle theme1 d-lg-none">
                           <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
                               <svg viewbox="0 0 800 600">

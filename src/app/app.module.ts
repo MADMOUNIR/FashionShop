@@ -20,6 +20,10 @@ import { ModalQuickViewComponent } from './shop/modal-quick-view/modal-quick-vie
 import { CategoryComponent } from './category/category.component' ;
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
+import { AuthGuard } from './services/auth.guard';
+import { ButtonPaypalComponent } from './shop/button-paypal/button-paypal.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 const routes :  Routes = [
@@ -27,6 +31,7 @@ const routes :  Routes = [
  { path : 'shop' , component : ShopComponent} ,
  { path : 'cart' , component : CartComponent} ,
  { path : 'contact' , component : ContactComponent} ,
+ { path : 'checkout' ,canActivate : [AuthGuard], component : CheckoutComponent} ,
  { path : 'single-product/:id' , component : SingleProductComponent} ,
  { path : 'login' , component : LoginComponent} ,
  { path : 'register' , component : RegisterComponent} ,
@@ -53,14 +58,17 @@ const routes :  Routes = [
     NotFoundComponent,
     AddToCartComponent,
     ModalQuickViewComponent,
-    CategoryComponent
+    CategoryComponent,
+    CheckoutComponent,
+    ButtonPaypalComponent
   ],
   imports: [
     BrowserModule ,
     RouterModule.forRoot(routes) ,
     HttpClientModule ,
     ReactiveFormsModule ,
-    FormsModule
+    FormsModule,
+    NgxPayPalModule,
 
   ],
   providers: [],

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { CartService } from 'src/app/services/cart.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup ;
   errorMessage;
 
-  constructor(private userService : UsersService , private fb : FormBuilder , private router :Router) { }
+  constructor(private userService : UsersService , private fb : FormBuilder , private router :Router , private cartService : CartService) { }
 
   ngOnInit(): void {
     this.initFormLogin();
@@ -43,7 +44,17 @@ onSubmit() : void
   //Appel au service d'authent
   this.userService.authentifier(newUser).then(
     (data) => {
-      this.router.navigate(['/shop']);
+      //On vérifie s'il y a des chose dans le panier on redirige vers le checkout, sinon on rederige vers shop
+      if(this.cartService.cartData.qty > 0 )
+      {
+        this.router.navigate(['/checkout']);
+
+      }
+      else
+      {
+        this.router.navigate(['/shop']);
+      }
+
     }
 
   ).catch( (error) => {
