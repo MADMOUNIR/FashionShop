@@ -2,11 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const BASE_URL = "http://localhost/ecommerce/backend";
 export const environment = {
   production: false,
-  api : "http://localhost/ecommerce/backend/api/" ,
+  api : BASE_URL + "/api/" ,
   api_key : "adsffsdfds6b-6727-46f4-8bee-2c6ce6293e41" ,
-  prefImageUrl : "http://localhost/ecommerce/backend/images/products/" ,
+  prefImageUrl :  BASE_URL + "/images/products/" ,
   ID_CLIENT_PAYPAL : "AajS7ZlGCAQVme-iBJmHabLNRYjGsyiDE79O9JsUx5So_48QcobAQXpcmXTUUpPXVKh7CVkrcNFGSKr4",
   CURRENCY : 'EUR' ,
 };

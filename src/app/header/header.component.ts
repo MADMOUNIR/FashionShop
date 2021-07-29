@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Cart } from '../models/cart';
 import { Category } from '../models/category';
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   categorySub : Subscription ;
   isAuth = false;
   userName;
-
+  @Input() title : string;
   constructor(private cartService : CartService ,
               private categoryService : CategoryService ,
               private userService : UsersService) { }

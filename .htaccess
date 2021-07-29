@@ -1,0 +1,21 @@
+  
+# GENERATE WITH CLI GENERATE-APACHE-HTACCESS  
+# Author : Espero-Soft Informatique  
+# Email : contact@apprenez-a-coder.fr  
+# Url : https://apprenez-a-coder.com  
+
+# Begin Rewrite URL  
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+  Header always set Content-Security-Policy "upgrade-insecure-requests;"
+</IfModule>  
+
+# END Rewrite URL

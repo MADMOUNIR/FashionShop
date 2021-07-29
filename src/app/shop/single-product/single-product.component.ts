@@ -29,7 +29,6 @@ export class SingleProductComponent implements OnInit {
     window.scrollTo(0,0);
     const id = +this.route.snapshot.params["id"] ; // pour forcer la conversion vers entier
 
-
     this.productSub = this.prodService.productSubject.subscribe(
       (data : Product[]) =>
       {
